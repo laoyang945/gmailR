@@ -33,6 +33,8 @@ function(to, from, subject, username, password, server, message, attachment,
   paste("toaddrs  = '", to, "'", sep=""), 
   "msg = MIMEMultipart()", 
   paste("msg.attach(MIMEText('", message, "','plain','utf-8'))", sep=""), 
+  paste(msg["Accept-Language"]="zh-CN"),
+  paste(msg["Accept-Charset"]="ISO-8859-1,utf-8"),),
   paste("msg['From'] = email.utils.formataddr(('", names(from), "', fromaddr))", sep=""), 
   paste("msg['To'] = email.utils.formataddr(('", names(to), "', toaddrs))", sep=""), 
   paste("msg['Subject'] = Header('", subject, "','utf-8')", sep="")) 
