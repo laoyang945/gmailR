@@ -32,12 +32,13 @@ function(to, from, subject, username, password, server, message, attachment,
   paste("fromaddr = '", from, "'", sep=""), 
   paste("toaddrs  = '", to, "'", sep=""), 
   "msg = MIMEMultipart()", 
-  paste("msg.attach(MIMEText('", message, "','plain',_charset='utf-8'))", sep=""), 
+  paste("text = u'",message,"'",sep=""),
+  "msg.attach(MIMEText(text.encode('UTF-8'),'plain','UTF-8'))",
   #paste(msg["Accept-Language"]="zh-CN"),
   #paste(msg["Accept-Charset"]="ISO-8859-1,utf-8"),),
   paste("msg['From'] = email.utils.formataddr(('", names(from), "', fromaddr))", sep=""), 
   paste("msg['To'] = email.utils.formataddr(('", names(to), "', toaddrs))", sep=""), 
-  paste("msg['Subject'] = Header('", subject, "','utf-8')", sep="")) 
+  paste("msg['Subject'] = Header(unicode(u'", subject, "'),'ISO-8859-1')", sep="")) 
   if (!is.null(attachment)){ 
     mail <- c(mail, 
       paste("f = '", attachment, "'", sep=""), 
