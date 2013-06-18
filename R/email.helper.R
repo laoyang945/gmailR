@@ -22,6 +22,7 @@ function(to, from, subject, username, password, server, message, attachment,
   rJython$exec("import os") 
   rJython$exec("from email.MIMEMultipart import MIMEMultipart") 
   rJython$exec("from email.MIMEBase import MIMEBase") 
+  rJython$exec("from email.Header import Header") 
   rJython$exec("from email.MIMEText import MIMEText") 
   rJython$exec("from email.Utils import COMMASPACE, formatdate") 
   rJython$exec("from email import Encoders") 
@@ -34,7 +35,7 @@ function(to, from, subject, username, password, server, message, attachment,
   paste("msg.attach(MIMEText('", message, "','plain','utf-8'))", sep=""), 
   paste("msg['From'] = email.utils.formataddr(('", names(from), "', fromaddr))", sep=""), 
   paste("msg['To'] = email.utils.formataddr(('", names(to), "', toaddrs))", sep=""), 
-  paste("msg['Subject'] = '", subject, "'", sep="")) 
+  paste("msg['Subject'] = Header('", subject, "','utf-8')", sep="")) 
   if (!is.null(attachment)){ 
     mail <- c(mail, 
       paste("f = '", attachment, "'", sep=""), 
